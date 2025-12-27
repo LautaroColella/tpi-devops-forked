@@ -32,7 +32,7 @@ El frontend se comunica con el backend a través de una variable inyectada en in
 
 Diagrama del pipeline DevOps
 
-```
+
 ┌──────────────────────────────┐
 │        Push a GitHub         │
 │ (main o develop / PR event)  │
@@ -78,8 +78,6 @@ Diagrama del pipeline DevOps
      │ - docker push      │
      │ - curl a Render    │
      └────────────────────┘
-
-```
 
 Roles del equipo
 
