@@ -13,75 +13,31 @@ Esta es una aplicación web fullstack que permite gestionar una lista de tareas 
 
 ## Instrucciones para correrlo localmente con Docker
 
-1. Clonar el repositorio:
+1. Clonar el repositorio
 
+```bash
 git clone https://github.com/tu-org/todo-app.git
 cd todo-app
+```
 
 2. Ejecutar la aplicación:
 
+```bash
 docker-compose up --build
-
+```
 
 3. Acceder desde el navegador:
 
-- Frontend: http://localhost:8080
-- Backend API: http://localhost:8000/docs
-El frontend se comunica con el backend a través de una variable inyectada en index.html (window.__API_BASE__), que se configura automáticamente en producción.
+- Frontend: <http://localhost:8080>
+- Backend API: <http://localhost:8000/docs>
 
+El frontend se comunica con el backend a través de una variable inyectada en index.html (window.**API_BASE**), que se configura automáticamente en producción.
 
-Diagrama del pipeline DevOps
+## Diagrama del pipeline DevOps
 
+asd
 
-┌──────────────────────────────┐
-│        Push a GitHub         │
-│ (main o develop / PR event)  │
-└────────────┬────────────────┘
-             │
-             ▼
-┌──────────────────────────────┐
-│     build-backend (Python)   │
-│ - Checkout                   │
-│ - Setup Python               │
-│ - Instalar dependencias      │
-│ - Ejecutar tests             │
-└────────────┬────────────────┘
-             │
-             │
-┌────────────▼────────────────┐
-│    build-frontend (JS puro) │
-│ - Checkout                  │
-│ - Validar estructura        │
-└────────────┬────────────────┘
-             │
-             ▼
-┌──────────────────────────────┐
-│       docker-publish         │
-│ - Checkout                   │
-│ - Login Docker Hub           │
-│ - Build backend image        │
-│ - Build frontend image       │
-│ - Push backend image         │
-│ - Push frontend image        │
-└────────────┬────────────────┘
-             │
-     ┌───────▼────────────┐
-     │   deploy-back      │
-     │ - curl a Render    │
-     └────────────────────┘
-             │
-     ┌───────▼────────────┐
-     │   deploy-front     │
-     │ - Checkout         │
-     │ - Inyectar API_BASE│
-     │ - docker build     │
-     │ - docker push      │
-     │ - curl a Render    │
-     └────────────────────┘
-
-Roles del equipo
-
-Equipo de desarrollo:
+## Roles del equipo
 
 - Franco Perrone Rey: Líder técnico y DevOps
 - Lautaro Colella: Backend Developer
@@ -89,14 +45,14 @@ Equipo de desarrollo:
 - Juan Guillermo Oliver: QA & Testing
 - Denise Barrera: Documentación y soporte
 
+## Conclusiones
 
+Durante este proyecto logramos:
 
-
-Conclusiones
-Durante este proyecto aprendimos a:
 - Contenerizar aplicaciones: encapsulamos tanto el frontend como el backend en imágenes Docker independientes, lo que facilita la portabilidad y el despliegue.
 - Orquestar servicios con docker-compose: levantamos múltiples contenedores en red, simulando un entorno real de desarrollo.
 - Automatizar pipelines CI/CD: configuramos GitHub Actions para testear, construir, publicar y desplegar automáticamente en Render.
 - Separar ambientes: entendimos la importancia de tener entornos de staging (pre-producción) para validar cambios antes de pasar a producción.
 - Inyectar configuraciones dinámicas: usamos sed para inyectar la URL del backend en el frontend en tiempo de build, permitiendo flexibilidad entre entornos.
+
 Este flujo nos permitió simular un ciclo de vida completo de desarrollo y despliegue profesional, con control de versiones, testing automatizado y despliegue continuo.
