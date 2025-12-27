@@ -35,7 +35,53 @@ El frontend se comunica con el backend a través de una variable inyectada en in
 
 ## Diagrama del pipeline DevOps
 
-asd
+```bash
+┌──────────────────────────────┐
+│ Push a GitHub │
+│ (main o develop / PR event) │
+└────────────┬────────────────┘
+│
+▼
+┌──────────────────────────────┐
+│ build-backend (Python) │
+│ - Checkout │
+│ - Setup Python │
+│ - Instalar dependencias │
+│ - Ejecutar tests │
+└────────────┬────────────────┘
+│
+│
+┌────────────▼────────────────┐
+│ build-frontend (JS puro) │
+│ - Checkout │
+│ - Validar estructura │
+└────────────┬────────────────┘
+│
+▼
+┌──────────────────────────────┐
+│ docker-publish │
+│ - Checkout │
+│ - Login Docker Hub │
+│ - Build backend image │
+│ - Build frontend image │
+│ - Push backend image │
+│ - Push frontend image │
+└────────────┬────────────────┘
+│
+┌───────▼────────────┐
+│ deploy-back │
+│ - curl a Render │
+└────────────────────┘
+│
+┌───────▼────────────┐
+│ deploy-front │
+│ - Checkout │
+│ - Inyectar API_BASE│
+│ - docker build │
+│ - docker push │
+│ - curl a Render │
+└────────────────────┘
+```
 
 ## Roles del equipo
 
